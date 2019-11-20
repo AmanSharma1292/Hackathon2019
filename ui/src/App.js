@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import "./App.css";
 import search from "./search.svg";
 import Table from "./components/Table";
@@ -16,35 +17,18 @@ class App extends React.Component {
   searchQuery = e => {
     e.preventDefault();
     this.setState({ notfound: false, loading: true });
-    // axios
-    //   .get(
-    //     `https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000`
-    //   )
-    //   .then(res => {
-    //     const fullData = res.data;
-    //     const data = this.search(fullData);
-    //     let keyword = this.state.input;
-    //     if (data.length === 0) {
-    //       // keyword not found
-    //       this.setState({ notfound: true, keyword, loading: false });
-    //     }
-    //     this.setState({ data, loading: false });
-    //   });
-    setTimeout(() => {
-      let data = {
-        building_name: "CASA DEL GELATO",
-        flat_number: "10",
-        flat_number_suffix: "A",
-        number_first: "24",
-        number_last: "26",
-        street_name: "HIGH STREET",
-        street_type: "ROAD",
-        locality_name: "MOUNT WAVERLEY",
-        state: "VICTORIA",
-        postcode: "3183"
-      };
-      this.setState({ data, loading: false });
-    }, 2000);
+    axios
+      .get(
+        `/api/${this.state.input}`
+      )
+      .then(res => {
+        const fullData = res.data;
+        if (data.length === 0) {
+          // keyword not found
+          this.setState({ notfound: true, loading: false });
+        }
+        this.setState({ data, loading: false });
+      });
   };
 
   render() {
