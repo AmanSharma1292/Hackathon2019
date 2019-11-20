@@ -2,5 +2,13 @@
   "name": "Hackathon2019",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "api": "cd api && python -m flask run",
+    "react": "cd ui && yarn start",
+    "dev": "concurrently 'yarn api' 'yarn react'"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
 }
